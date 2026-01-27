@@ -105,7 +105,8 @@ def main(script_args, training_args, model_args):
         try:
             question = example["problem"]
         except:
-            question = example["question"]
+            key = "prompt" if "prompt" in example else "question"
+            question = example[key]
         if training_args.system_prompt is not None:
             prompt.append({"role": "system", "content": training_args.system_prompt})
 
@@ -131,13 +132,26 @@ def main(script_args, training_args, model_args):
         dataset = dataset.map(make_conversation_llama)
     else:
         print("Not-llama mode")
+        if script_args.dataset_name == "xinlai/Math-Step-DPO-10K":
+            dataset = dataset.rename_column("prompt", "question")
+
         dataset = dataset.map(make_conversation)
 
 
     for split in dataset:
+        # drop all columns except for "question" and "answer" and "prompt"
+        if script_args.dataset_name == "xinlai/Math-Step-DPO-10K":
+            dataset[split] = dataset[split].remove_columns([col for col in dataset[split].column_names if col not in ["question", "answer", "prompt"]])
+            # prepend "#### " to the answer column
+            # also remove rows where the answer cannot be converted to an integer
+            print("number of rows original: ", len(dataset[split]))
+
+            dataset[split] = dataset[split].filter(lambda x: x["answer"].isdigit())
+            # how many are left
+            print("number of rows left: ", len(dataset[split]))
+            dataset[split] = dataset[split].map(lambda x: {"answer": "#### " + x["answer"]})
         if "messages" in dataset[split].column_names:
             dataset[split] = dataset[split].remove_columns("messages")
-
     logger.info("*** Initializing model kwargs ***")
     torch_dtype = (
         model_args.torch_dtype if model_args.torch_dtype in ["auto", None] else getattr(torch, model_args.torch_dtype)
@@ -155,6 +169,8 @@ def main(script_args, training_args, model_args):
     # Initialize the GRPO trainer
     #############################
     training_args.optim = "paged_adamw_8bit" 
+
+    # exit(0)
     trainer = UniRGRPOTrainer(
         model=model_args.model_name_or_path,
         ref_model=model_args.ref_name_or_path, 
@@ -207,3 +223,8 @@ if __name__ == "__main__":
     parser = TrlParser((GRPOScriptArguments, UniRGRPOConfig, UniRGRPOModelConfig))
     script_args, training_args, model_args = parser.parse_args_and_config()
     main(script_args, training_args, model_args)
+
+
+# xinlai/Math-Step-DPO-10K
+
+# ACCELERATE_LOG_LEVEL=info accelerate launch   --config_file recipes/accelerate_configs/zero2.yaml   --main_process_port 6667   --num_processes=2   src/unir/train.py   --config recipes/unir.yaml   --dataset_name xinlai/Math-Step-DPO-10K  --dataset_config default   --output_dir run/stepdpo-llama-backbone3b_reasoning1b   --run_name GSM8k-llama-backbone3b_reasoning1b   --ref_name_or_path Qwen/Qwen2.5-3B-Instruct   --model_name_or_path Qwen/Qwen2.5-0.5B-Instruct   --num_generations 8   --per_device_eval_batch_size 8   --per_device_train_batch_size 8   --max_completion_length 1024   --max_steps 1000   --save_steps 100   --beta 0.0   --system_prompt "A conversation between User and Assistant. The user asks a question, and the Assistant solves it. The assistant first thinks about the reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively. Your response should be in the following format: <think>\nYour reasoning here\n</think>\n<answer>\n answer here \n</answer>. The reasoning process Note that respond by English, NOT use other languages."   --reward_funcs rule_based_accuracy   --reward_weights 1.0
