@@ -1,0 +1,204 @@
+[34m[1mwandb[0m: Detected [huggingface_hub.inference] in use.
+[34m[1mwandb[0m: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+[34m[1mwandb[0m: For more information, check out the docs at: https://weave-docs.wandb.ai/
+[wandb] running: https://wandb.ai/juliancf/UniR/runs/ydlzhkhj
+2026-01-30 00:22:49 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1 distributed training: True, 16-bits training: False
+2026-01-30 00:22:49 - INFO - __main__ - Model parameters UniRGRPOModelConfig(model_name_or_path='Qwen/Qwen2.5-0.5B-Instruct', model_revision='main', torch_dtype='bfloat16', trust_remote_code=False, attn_implementation='flash_attention_2', use_peft=False, lora_r=16, lora_alpha=32, lora_dropout=0.05, lora_target_modules=None, lora_modules_to_save=None, lora_task_type='CAUSAL_LM', use_rslora=False, load_in_8bit=False, load_in_4bit=False, bnb_4bit_quant_type='nf4', use_bnb_nested_quant=False, ref_name_or_path='Qwen/Qwen2.5-3B-Instruct', eval_checkpoint=None, dataset_index=0, use_unir=True)
+2026-01-30 00:22:49 - INFO - __main__ - Script parameters GRPOScriptArguments(dataset_name='dataset/gsm8k', dataset_config='default', dataset_train_split='train', dataset_test_split='test', gradient_checkpointing_use_reentrant=False, ignore_bias_buffers=False, reward_funcs=['rule_based_accuracy'], cosine_min_value_wrong=0.0, cosine_max_value_wrong=-0.5, cosine_min_value_correct=0.5, cosine_max_value_correct=1.0, cosine_max_len=1000, repetition_n_grams=3, repetition_max_penalty=-1.0, code_language='python')
+2026-01-30 00:22:49 - INFO - __main__ - Training parameters UniRGRPOConfig(
+_n_gpu=1,
+accelerator_config={'split_batches': False, 'dispatch_batches': None, 'even_batches': True, 'use_seedable_sampler': True, 'non_blocking': False, 'gradient_accumulation_kwargs': None, 'use_configured_state': False},
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+average_tokens_across_devices=False,
+batch_eval_metrics=False,
+benchmarks=[],
+beta=0.0,
+bf16=True,
+bf16_full_eval=False,
+callbacks=[],
+chat_template=None,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_persistent_workers=False,
+dataloader_pin_memory=True,
+dataloader_prefetch_factor=None,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+dispatch_batches=None,
+do_eval=False,
+do_predict=False,
+do_sample=True,
+do_train=False,
+ds3_gather_for_generation=True,
+epsilon=0.2,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_do_concat_batches=True,
+eval_on_start=False,
+eval_steps=None,
+eval_strategy=IntervalStrategy.NO,
+eval_use_gather_object=False,
+evaluation_strategy=None,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_v2': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=4,
+gradient_checkpointing=True,
+gradient_checkpointing_kwargs={'use_reentrant': False},
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=UniR,
+hub_model_revision=main,
+hub_private_repo=None,
+hub_strategy=HubStrategy.EVERY_SAVE,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_for_metrics=[],
+include_inputs_for_metrics=False,
+include_num_input_tokens_seen=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=1e-06,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_completions=True,
+log_level=info,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=run/GSM8k-llama-backbone3b_reasoning1b/runs/Jan30_00-22-47_h200-012-249,
+logging_first_step=True,
+logging_nan_inf_filter=True,
+logging_steps=1,
+logging_strategy=IntervalStrategy.STEPS,
+lr_scheduler_kwargs={'min_lr_rate': 0.1},
+lr_scheduler_type=SchedulerType.COSINE_WITH_MIN_LR,
+max_completion_length=1024,
+max_grad_norm=1.0,
+max_prompt_length=512,
+max_steps=1000,
+metric_for_best_model=None,
+model_init_kwargs=None,
+mp_parameters=,
+neftune_noise_alpha=None,
+no_cuda=False,
+num_generations=8,
+num_iterations=1,
+num_train_epochs=1,
+optim=OptimizerNames.ADAMW_TORCH,
+optim_args=None,
+optim_target_modules=None,
+output_dir=run/GSM8k-llama-backbone3b_reasoning1b,
+overwrite_hub_revision=False,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_revision=False,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+ref_model_mixup_alpha=0.6,
+ref_model_sync_steps=512,
+remove_unused_columns=False,
+report_to=['tensorboard'],
+restore_callback_states_from_checkpoint=False,
+resume_from_checkpoint=None,
+reward_weights=[1.0],
+run_name=GSM8k-llama-backbone3b_reasoning1b,
+save_on_each_node=False,
+save_only_model=False,
+save_safetensors=True,
+save_steps=100,
+save_strategy=SaveStrategy.STEPS,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=True,
+split_batches=None,
+sync_ref_model=False,
+system_prompt=A conversation between User and Assistant. The user asks a question, and the Assistant solves it. The assistant first thinks about the reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively. Your response should be in the following format: <think>\nYour reasoning here\n</think>\n<answer>\n answer here \n</answer>. The reasoning process Note that respond by English, NOT use other languages.,
+temperature=0.7,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torch_empty_cache_steps=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_liger_kernel=False,
+use_mps_device=False,
+use_vllm=False,
+vllm_device=auto,
+vllm_dtype=auto,
+vllm_enable_prefix_caching=True,
+vllm_gpu_memory_utilization=0.6,
+vllm_guided_decoding_regex=None,
+vllm_max_model_len=None,
+wandb_entity=None,
+wandb_project=None,
+warmup_ratio=0.1,
+warmup_steps=0,
+weight_decay=0.0,
+)
+Traceback (most recent call last):
+  File "/storage/home/tamboli/UniR/src/unir/train.py", line 227, in <module>
+    main(script_args, training_args, model_args)
+  File "/storage/home/tamboli/UniR/src/unir/train.py", line 87, in main
+    dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 1488, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 1133, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 1026, in dataset_module_factory
+    raise e1 from None
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 983, in dataset_module_factory
+    raise DatasetNotFoundError(f"Dataset '{path}' doesn't exist on the Hub or cannot be accessed.") from e
+datasets.exceptions.DatasetNotFoundError: Dataset 'dataset/gsm8k' doesn't exist on the Hub or cannot be accessed.
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/storage/home/tamboli/UniR/src/unir/train.py", line 227, in <module>
+[rank0]:     main(script_args, training_args, model_args)
+[rank0]:   File "/storage/home/tamboli/UniR/src/unir/train.py", line 87, in main
+[rank0]:     dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
+[rank0]:               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 1488, in load_dataset
+[rank0]:     builder_instance = load_dataset_builder(
+[rank0]:                        ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 1133, in load_dataset_builder
+[rank0]:     dataset_module = dataset_module_factory(
+[rank0]:                      ^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 1026, in dataset_module_factory
+[rank0]:     raise e1 from None
+[rank0]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/datasets/load.py", line 983, in dataset_module_factory
+[rank0]:     raise DatasetNotFoundError(f"Dataset '{path}' doesn't exist on the Hub or cannot be accessed.") from e
+[rank0]: datasets.exceptions.DatasetNotFoundError: Dataset 'dataset/gsm8k' doesn't exist on the Hub or cannot be accessed.

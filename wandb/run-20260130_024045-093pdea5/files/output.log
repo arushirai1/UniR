@@ -1,0 +1,122 @@
+[34m[1mwandb[0m: Detected [huggingface_hub.inference] in use.
+[34m[1mwandb[0m: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+[34m[1mwandb[0m: For more information, check out the docs at: https://weave-docs.wandb.ai/
+[wandb] running: https://wandb.ai/juliancf/UniR/runs/093pdea5
+2026-01-30 02:40:46 - WARNING - __main__ - Process rank: 1, device: cuda:0, n_gpu: 1 distributed training: True, 16-bits training: False
+Not-llama mode
+Map: 100%|█████████████████████████████████████████████████████████| 7473/7473 [00:00<00:00, 27166.17 examples/s]
+Map: 100%|█████████████████████████████████████████████████████████| 1319/1319 [00:00<00:00, 34589.33 examples/s]
+[WARNING|logging.py:329] 2026-01-30 02:40:48,515 >> Sliding Window Attention is enabled but not implemented for `sdpa`; unexpected results may be encountered.
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████| 2/2 [00:00<00:00,  4.26it/s]
+UniR GRPO start Qwen2ForCausalLM(
+  (model): Qwen2Model(
+    (embed_tokens): Embedding(151936, 896)
+    (layers): ModuleList(
+      (0-23): 24 x Qwen2DecoderLayer(
+        (self_attn): Qwen2Attention(
+          (q_proj): Linear(in_features=896, out_features=896, bias=True)
+          (k_proj): Linear(in_features=896, out_features=128, bias=True)
+          (v_proj): Linear(in_features=896, out_features=128, bias=True)
+          (o_proj): Linear(in_features=896, out_features=896, bias=False)
+        )
+        (mlp): Qwen2MLP(
+          (gate_proj): Linear(in_features=896, out_features=4864, bias=False)
+          (up_proj): Linear(in_features=896, out_features=4864, bias=False)
+          (down_proj): Linear(in_features=4864, out_features=896, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): Qwen2RMSNorm((896,), eps=1e-06)
+        (post_attention_layernorm): Qwen2RMSNorm((896,), eps=1e-06)
+      )
+    )
+    (norm): Qwen2RMSNorm((896,), eps=1e-06)
+    (rotary_emb): Qwen2RotaryEmbedding()
+  )
+  (lm_head): Linear(in_features=896, out_features=151936, bias=False)
+)
+qwen reasoning module load
+ref_model Qwen2ForCausalLM(
+  (model): Qwen2Model(
+    (embed_tokens): Embedding(151936, 2048)
+    (layers): ModuleList(
+      (0-35): 36 x Qwen2DecoderLayer(
+        (self_attn): Qwen2Attention(
+          (q_proj): Linear(in_features=2048, out_features=2048, bias=True)
+          (k_proj): Linear(in_features=2048, out_features=256, bias=True)
+          (v_proj): Linear(in_features=2048, out_features=256, bias=True)
+          (o_proj): Linear(in_features=2048, out_features=2048, bias=False)
+        )
+        (mlp): Qwen2MLP(
+          (gate_proj): Linear(in_features=2048, out_features=11008, bias=False)
+          (up_proj): Linear(in_features=2048, out_features=11008, bias=False)
+          (down_proj): Linear(in_features=11008, out_features=2048, bias=False)
+          (act_fn): SiLU()
+        )
+        (input_layernorm): Qwen2RMSNorm((2048,), eps=1e-06)
+        (post_attention_layernorm): Qwen2RMSNorm((2048,), eps=1e-06)
+      )
+    )
+    (norm): Qwen2RMSNorm((2048,), eps=1e-06)
+    (rotary_emb): Qwen2RotaryEmbedding()
+  )
+  (lm_head): Linear(in_features=2048, out_features=151936, bias=False)
+)
+Using sampling
+[2026-01-30 02:40:58,650] [INFO] [config.py:733:__init__] Config mesh_device None world_size = 2
+Traceback (most recent call last):
+  File "/storage/home/tamboli/UniR/src/unir/train.py", line 227, in <module>
+    main(script_args, training_args, model_args)
+  File "/storage/home/tamboli/UniR/src/unir/train.py", line 176, in main
+    trainer = UniRGRPOTrainer(
+              ^^^^^^^^^^^^^^^^
+  File "/storage/home/tamboli/UniR/src/unir/trainer/UniRTrainer.py", line 1174, in __init__
+    self.ref_model = prepare_deepspeed(self.ref_model, self.accelerator)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/trl/models/utils.py", line 245, in prepare_deepspeed
+    model, *_ = deepspeed.initialize(model=model, config=config_kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/__init__.py", line 193, in initialize
+    engine = DeepSpeedEngine(args=args,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/runtime/engine.py", line 255, in __init__
+    self._set_distributed_vars(args)
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/runtime/engine.py", line 1019, in _set_distributed_vars
+    get_accelerator().set_device(device_rank)
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/accelerator/cuda_accelerator.py", line 67, in set_device
+    torch.cuda.set_device(device_index)
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/torch/cuda/__init__.py", line 584, in set_device
+    torch._C._cuda_setDevice(device)
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/storage/home/tamboli/UniR/src/unir/train.py", line 227, in <module>
+[rank1]:     main(script_args, training_args, model_args)
+[rank1]:   File "/storage/home/tamboli/UniR/src/unir/train.py", line 176, in main
+[rank1]:     trainer = UniRGRPOTrainer(
+[rank1]:               ^^^^^^^^^^^^^^^^
+[rank1]:   File "/storage/home/tamboli/UniR/src/unir/trainer/UniRTrainer.py", line 1174, in __init__
+[rank1]:     self.ref_model = prepare_deepspeed(self.ref_model, self.accelerator)
+[rank1]:                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/trl/models/utils.py", line 245, in prepare_deepspeed
+[rank1]:     model, *_ = deepspeed.initialize(model=model, config=config_kwargs)
+[rank1]:                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/__init__.py", line 193, in initialize
+[rank1]:     engine = DeepSpeedEngine(args=args,
+[rank1]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/runtime/engine.py", line 255, in __init__
+[rank1]:     self._set_distributed_vars(args)
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/runtime/engine.py", line 1019, in _set_distributed_vars
+[rank1]:     get_accelerator().set_device(device_rank)
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/deepspeed/accelerator/cuda_accelerator.py", line 67, in set_device
+[rank1]:     torch.cuda.set_device(device_index)
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/torch/cuda/__init__.py", line 584, in set_device
+[rank1]:     torch._C._cuda_setDevice(device)
+[rank1]: torch.AcceleratorError: CUDA error: invalid device ordinal
+[rank1]: GPU device may be out of range, do you have enough GPUs?
+[rank1]: CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+[rank1]: For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+[rank1]: Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.

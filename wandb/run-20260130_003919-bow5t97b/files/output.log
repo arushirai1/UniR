@@ -1,0 +1,60 @@
+[34m[1mwandb[0m: Detected [huggingface_hub.inference] in use.
+[34m[1mwandb[0m: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+[34m[1mwandb[0m: For more information, check out the docs at: https://weave-docs.wandb.ai/
+[wandb] running: https://wandb.ai/juliancf/UniR/runs/bow5t97b
+2026-01-30 00:39:20 - WARNING - __main__ - Process rank: 1, device: cuda:0, n_gpu: 1 distributed training: True, 16-bits training: False
+tokenizer_config.json: 7.30kB [00:00, 29.9MB/s]
+vocab.json: 2.78MB [00:00, 103MB/s]
+merges.txt: 1.67MB [00:00, 145MB/s]
+tokenizer.json: 7.03MB [00:00, 148MB/s]
+Not-llama mode
+Map: 100%|██████████████████████████████| 7473/7473 [00:00<00:00, 26545.58 examples/s]
+Map: 100%|██████████████████████████████| 1319/1319 [00:00<00:00, 25107.84 examples/s]
+config.json: 100%|███████████████████████████████████| 659/659 [00:00<00:00, 4.46MB/s]
+model.safetensors: 100%|████████████████████████████| 988M/988M [00:02<00:00, 352MB/s]
+Traceback (most recent call last):
+  File "/storage/home/tamboli/UniR/src/unir/train.py", line 227, in <module>
+    main(script_args, training_args, model_args)
+  File "/storage/home/tamboli/UniR/src/unir/train.py", line 176, in main
+    trainer = UniRGRPOTrainer(
+              ^^^^^^^^^^^^^^^^
+  File "/storage/home/tamboli/UniR/src/unir/trainer/UniRTrainer.py", line 891, in __init__
+    model = AutoModelForCausalLM.from_pretrained(model, **model_init_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 262, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4179, in from_pretrained
+    config = cls._autoset_attn_implementation(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 1575, in _autoset_attn_implementation
+    cls._check_and_enable_flash_attn_2(
+  File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 1710, in _check_and_enable_flash_attn_2
+    raise ImportError(f"{preface} the package flash_attn seems to be not installed. {install_message}")
+ImportError: FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package flash_attn seems to be not installed. Please refer to the documentation of https://huggingface.co/docs/transformers/perf_infer_gpu_one#flashattention-2 to install Flash Attention 2.
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/storage/home/tamboli/UniR/src/unir/train.py", line 227, in <module>
+[rank1]:     main(script_args, training_args, model_args)
+[rank1]:   File "/storage/home/tamboli/UniR/src/unir/train.py", line 176, in main
+[rank1]:     trainer = UniRGRPOTrainer(
+[rank1]:               ^^^^^^^^^^^^^^^^
+[rank1]:   File "/storage/home/tamboli/UniR/src/unir/trainer/UniRTrainer.py", line 891, in __init__
+[rank1]:     model = AutoModelForCausalLM.from_pretrained(model, **model_init_kwargs)
+[rank1]:             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+[rank1]:     return model_class.from_pretrained(
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 262, in _wrapper
+[rank1]:     return func(*args, **kwargs)
+[rank1]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4179, in from_pretrained
+[rank1]:     config = cls._autoset_attn_implementation(
+[rank1]:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 1575, in _autoset_attn_implementation
+[rank1]:     cls._check_and_enable_flash_attn_2(
+[rank1]:   File "/home/tamboli/miniconda3/envs/unir_fresh/lib/python3.12/site-packages/transformers/modeling_utils.py", line 1710, in _check_and_enable_flash_attn_2
+[rank1]:     raise ImportError(f"{preface} the package flash_attn seems to be not installed. {install_message}")
+[rank1]: ImportError: FlashAttention2 has been toggled on, but it cannot be used due to the following error: the package flash_attn seems to be not installed. Please refer to the documentation of https://huggingface.co/docs/transformers/perf_infer_gpu_one#flashattention-2 to install Flash Attention 2.
