@@ -106,7 +106,7 @@ def main(script_args, training_args, model_args):
         prompt = []
         try:
             question = example["problem"]
-        except KeyError:
+        except:
             key = "prompt" if "prompt" in example else "question"
             question = example[key]
         if training_args.system_prompt is not None:
@@ -118,11 +118,8 @@ def main(script_args, training_args, model_args):
     def make_conversation_llama(example):
         try:
             question = example["problem"]
-        except KeyError:
-            try:
-                question = example["question"]
-            except KeyError:
-                question = example["prompt"]
+        except:
+            question = example["question"]
         prompt =(
             "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
             f"{training_args.system_prompt}\n"

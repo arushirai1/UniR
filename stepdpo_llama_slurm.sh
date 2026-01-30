@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --account=all
-#SBATCH --partition=learnai
+#SBATCH --account=mrs_2
+#SBATCH --qos=h200_mrs_shared
 #SBATCH --job-name=unir_llama_math_step_dpo_10k
 #SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:2

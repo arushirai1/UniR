@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --account=all
-#SBATCH --partition=learnai
+#SBATCH --account=mrs_2
+#SBATCH --qos=h200_mrs_shared
 #SBATCH --job-name=unir_stepdpo_qwen
 #SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:2
@@ -19,7 +19,7 @@ export HF_HOME="/storage/home/tamboli/.cache/huggingface"
 
 ACCELERATE_LOG_LEVEL=info accelerate launch \
   --config_file recipes/accelerate_configs/zero2.yaml \
-  --main_process_port 6667 \
+  --main_process_port 6668 \
   --num_processes=2 \
   src/unir/train.py \
   --config recipes/unir.yaml \
