@@ -3,7 +3,7 @@
 #SBATCH --qos=h200_mrs_shared
 #SBATCH --job-name=unir_llama_math_step_dpo_10k
 #SBATCH --ntasks-per-node=1
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:8
 #SBATCH --cpus-per-task=12
 #SBATCH --nodes=1
 #SBATCH --output=logs/unir_llama_math_step_dpo_10k-%j.out
@@ -20,7 +20,7 @@ export HF_HOME="/storage/home/tamboli/.cache/huggingface"
 ACCELERATE_LOG_LEVEL=info accelerate launch \
   --config_file recipes/accelerate_configs/zero2.yaml \
   --main_process_port 6669 \
-  --num_processes=2 \
+  --num_processes=8 \
   src/unir/train.py \
   --config recipes/unir.yaml \
   --report_to wandb \
@@ -32,8 +32,8 @@ ACCELERATE_LOG_LEVEL=info accelerate launch \
   --ref_name_or_path meta-llama/Llama-3.1-8B-Instruct \
   --model_name_or_path deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
   --num_generations 8 \
-  --per_device_eval_batch_size 8 \
-  --per_device_train_batch_size 8 \
+  --per_device_eval_batch_size 2 \
+  --per_device_train_batch_size 2 \
   --max_completion_length 1024 \
   --max_steps 1000 \
   --save_steps 100 \
