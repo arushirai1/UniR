@@ -26,7 +26,7 @@ ACCELERATE_LOG_LEVEL=info accelerate launch \
   --report_to wandb \
   --logging_steps 16  \
   --dataset_name xinlai/Math-Step-DPO-10K \
-  --dataset_config main \
+  --dataset_config default \
   --output_dir run/unir_qwen_math_step_dpo_10k \
   --run_name unir_qwen_math_step_dpo_10k \
   --ref_name_or_path Qwen/Qwen2.5-3B-Instruct \
