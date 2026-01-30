@@ -1,4 +1,3 @@
-wandb/
 test.log
 run/
 *__pycache__/
@@ -9,4 +8,8 @@ setup.cfg
 *.slurm
 *.err
 *.out
-.env
+.envwandb/
+wandb/
+logs/
+wandb/
+logs/
