@@ -1,6 +1,0 @@
-{"time":"2026-01-30T02:44:30.728259285Z","level":"INFO","msg":"stream: starting","core version":"0.23.1"}
-{"time":"2026-01-30T02:44:31.03974403Z","level":"INFO","msg":"stream: created new stream","id":"pgb6970v"}
-{"time":"2026-01-30T02:44:31.040647667Z","level":"INFO","msg":"handler: started","stream_id":"pgb6970v"}
-{"time":"2026-01-30T02:44:31.044278561Z","level":"INFO","msg":"stream: started","id":"pgb6970v"}
-{"time":"2026-01-30T02:44:31.044293573Z","level":"INFO","msg":"writer: started","stream_id":"pgb6970v"}
-{"time":"2026-01-30T02:44:31.044305692Z","level":"INFO","msg":"sender: started","stream_id":"pgb6970v"}
