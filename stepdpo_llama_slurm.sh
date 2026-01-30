@@ -19,7 +19,7 @@ export HF_HOME="/storage/home/tamboli/.cache/huggingface"
 
 ACCELERATE_LOG_LEVEL=info accelerate launch \
   --config_file recipes/accelerate_configs/zero2.yaml \
-  --main_process_port 6667 \
+  --main_process_port 6669 \
   --num_processes=2 \
   src/unir/train.py \
   --config recipes/unir.yaml \
