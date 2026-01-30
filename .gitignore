@@ -1,3 +1,4 @@
+wandb/
 test.log
 run/
 *__pycache__/
